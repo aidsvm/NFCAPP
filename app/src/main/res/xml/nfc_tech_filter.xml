@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <tech-list>
-        <tech>android.nfc.tech.Ndef</tech>
+        <!-- For communicating with the card via NFC-A protocol -->
+        <tech>android.nfc.tech.NfcA</tech>
     </tech-list>
-
 </resources>
