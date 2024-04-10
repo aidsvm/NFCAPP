@@ -46,6 +46,15 @@
                     android:resource="@xml/nfc_tech_filter" />
         </activity>
 
+        <activity android:name=".AdminLoginActivity" android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
+        <!-- Launch intent filter -->
+
 
 
     </application>

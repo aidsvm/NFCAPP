@@ -82,8 +82,6 @@ public class NFCActivity extends AppCompatActivity {
     }
 
     private void handleIntent(Intent intent) {
-        // Log the action of the incoming intent for debugging purposes.
-        Log.d("NFCActivity", "handleIntent: " + intent.getAction());
         // Retrieve the action from the intent to determine the type of NFC interaction.
         String action = intent.getAction();
 
@@ -107,7 +105,9 @@ public class NFCActivity extends AppCompatActivity {
             if (tag != null) {
                 // Convert the tag's ID to a hex string and display it.
                 // This is typically used to visually represent the tag's unique identifier to the user.
-                displayNfcData(bytesToHex(tag.getId()));
+                String UID = bytesToHex(tag.getId());
+                displayNfcData(UID);
+
             }
         }
     }

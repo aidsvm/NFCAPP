@@ -3,5 +3,11 @@
     <string name="nfcapp">NFCApp</string>
     <string name="uid">UID:</string>
     <string name="admin_login">admin login</string>
-    <string name="please_bring_your_phone_near_the_nfc_tag">Please bring your Phone near the NFC tag.</string>
+    <string name="nfc_prompt">Please bring your Phone near the NFC tag.</string>
+    <string name="admin_title">Admin Login</string>
+    <string name="back_btn">Back</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="user_hint">Username</string>
+    <string name="pass_hint">Password</string>
 </resources>

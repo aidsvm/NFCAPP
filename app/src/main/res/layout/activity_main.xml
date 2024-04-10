@@ -30,8 +30,8 @@
             android:fontFamily="@font/tiltneon"/>
     <TextView
             android:text="@string/admin_login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/textView3"
+            android:layout_width="94dp"
+            android:layout_height="29dp" android:id="@+id/textView3"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="8dp"
             app:layout_constraintStart_toEndOf="@+id/textView2" android:layout_marginBottom="308dp"
@@ -40,7 +40,7 @@
             android:fontFamily="@font/tiltneon"
             android:onClick="onAdminLoginClick"/>
     <TextView
-            android:text="@string/please_bring_your_phone_near_the_nfc_tag"
+            android:text="@string/nfc_prompt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/textView4"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -56,7 +56,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView2"
             app:layout_constraintStart_toEndOf="@+id/uidView"
             app:layout_constraintEnd_toEndOf="parent" android:layout_marginBottom="71dp"
-            app:layout_constraintBottom_toTopOf="@+id/textView4" app:layout_constraintHorizontal_bias="0.27"
-            app:layout_constraintVertical_bias="0.666" android:fontFamily="@font/tiltneon"/>
+            app:layout_constraintBottom_toTopOf="@+id/textView4" app:layout_constraintHorizontal_bias="0.189"
+            app:layout_constraintVertical_bias="0.0" android:fontFamily="@font/tiltneon"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
