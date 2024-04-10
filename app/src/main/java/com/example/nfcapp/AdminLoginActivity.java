@@ -20,4 +20,12 @@ public class AdminLoginActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void onAdminLogin(View view) {
+        // Start the admin login activity
+        Intent intent = new Intent(this, AdminOptionsActivity.class);
+        startActivity(intent);
+    }
+
+
+
 }

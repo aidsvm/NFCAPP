@@ -13,4 +13,6 @@
     <string name="map">Map/Initialize</string>
     <string name="add">Add Object</string>
     <string name="options">Admin Options</string>
+    <string name="loginbtn">Login</string>
+    <string name="backtoscanbtn">Scan</string>
 </resources>
