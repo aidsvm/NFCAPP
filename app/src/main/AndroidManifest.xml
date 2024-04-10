@@ -3,7 +3,11 @@
           xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.NFC" />
-    <uses-feature android:name="android.hardware.nfc" android:required="true" />
+
+    <uses-feature
+            android:name="android.hardware.nfc"
+            android:required="true" />
+
 
     <application
             android:allowBackup="true"
@@ -16,30 +20,33 @@
             android:theme="@style/Theme.NFCAPP"
             tools:targetApi="31">
 
-        <activity android:name=".NFCActivity" android:exported="true">
+        <activity android:name=".NFCActivity"
+                  android:exported="true">
+
+            <!-- Launch intent filter -->
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
-            <!-- Intent filters for NFC -->
+            <!-- NFC intent filters -->
+            <intent-filter>
+                <action android:name="android.nfc.action.TECH_DISCOVERED" />
+                <!-- Include other necessary intent filters for NFC -->
+            </intent-filter>
             <intent-filter>
                 <action android:name="android.nfc.action.NDEF_DISCOVERED" />
                 <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="application/com.example.nfcapp" />
             </intent-filter>
 
-            <intent-filter>
-                <action android:name="android.nfc.action.TECH_DISCOVERED"/>
-            </intent-filter>
-
-            <meta-data android:name="android.nfc.action.TECH_DISCOVERED"
-                       android:resource="@xml/nfc_tech_filter" />
-
-            <intent-filter>
-                <action android:name="android.nfc.action.TAG_DISCOVERED" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
+            <!-- Meta-data element specifying a resource XML that contains tech lists -->
+            <meta-data
+                    android:name="android.nfc.action.TECH_DISCOVERED"
+                    android:resource="@xml/nfc_tech_filter" />
         </activity>
+
+
 
     </application>
 </manifest>

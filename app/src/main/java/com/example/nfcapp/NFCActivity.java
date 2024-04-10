@@ -8,6 +8,7 @@ import android.nfc.Tag;
 import android.nfc.tech.NfcA;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,12 +39,19 @@ public class NFCActivity extends AppCompatActivity {
         handleIntent(getIntent());
     }
 
+    public void onAdminLoginClick(View view) {
+        // Start the admin login activity
+        Intent intent = new Intent(this, AdminLoginActivity.class);
+        startActivity(intent);
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
         // Create a pending intent that will restart the activity with the intent of a discovered NFC tag.
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0,
-                new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), PendingIntent.FLAG_IMMUTABLE);
+                // PendingIntent had to be set to mutable so an action would actually populate in it.
+                new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), PendingIntent.FLAG_MUTABLE);
         // Set up an intent filter for all NFC discoveries.
         IntentFilter techDetected = new IntentFilter(NfcAdapter.ACTION_TECH_DISCOVERED);
         IntentFilter[] intentFiltersArray = new IntentFilter[]{techDetected};
@@ -114,7 +122,7 @@ public class NFCActivity extends AppCompatActivity {
         // Find the UI element to update
         TextView tvNfcData = findViewById(R.id.tvNfcData);
         // Sets text of the specified UI element.
-        tvNfcData.setText("NFC Tag UID: " + data);
+        tvNfcData.setText(data);
     }
 
     /**
