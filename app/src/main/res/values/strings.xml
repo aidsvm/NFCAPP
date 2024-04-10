@@ -10,4 +10,7 @@
     <string name="password">Password</string>
     <string name="user_hint">Username</string>
     <string name="pass_hint">Password</string>
+    <string name="map">Map/Initialize</string>
+    <string name="add">Add Object</string>
+    <string name="options">Admin Options</string>
 </resources>
