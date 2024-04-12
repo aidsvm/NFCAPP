@@ -12,7 +12,15 @@
     <string name="pass_hint">Password</string>
     <string name="map">Map/Initialize</string>
     <string name="add">Add Object</string>
-    <string name="options">Admin Options</string>
+    <string name="deletebtn">Delete</string>
+    <string name="options">Objects</string>
     <string name="loginbtn">Login</string>
     <string name="backtoscanbtn">Scan</string>
+    <string name="addobjtitle">Add Object</string>
+    <string name="addbtn">Add</string>
+    <string name="name_inp">Name</string>
+    <string name="location_inp">Location</string>
+    <string name="desc_inp">Description</string>
+    <string name="maptitle">Map NFC</string>
+    <string name="nfc_map_prompt">Please bring your Phone near the NFC tag to map to the object.</string>
 </resources>

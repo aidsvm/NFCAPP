@@ -125,6 +125,10 @@ public class NFCActivity extends AppCompatActivity {
         tvNfcData.setText(data);
     }
 
+    private void displayObjectData(String UID) {
+        // Use GetObjectByNFCID API Function to display Object Info.
+    }
+
     /**
      *
      * Converts the UID (which is in bytes) to Hex.
