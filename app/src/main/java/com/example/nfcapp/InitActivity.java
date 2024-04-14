@@ -7,6 +7,8 @@ import android.nfc.NfcAdapter;
 import android.nfc.Tag;
 import android.nfc.tech.NfcA;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,11 +21,21 @@ public class InitActivity extends AppCompatActivity {
 
     private NfcAdapter nfcAdapter;
     public static String UID;
+    public String objectName;
+    public String objectDesc;
+    public String objectLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
+
+        Intent intent = getIntent();
+        if (intent != null) {
+            objectName = intent.getStringExtra("objectName");
+            objectDesc = intent.getStringExtra("objectDesc");
+            objectLocation = intent.getStringExtra("objectLocation");
+        }
 
         nfcAdapter = NfcAdapter.getDefaultAdapter(this);
         if (nfcAdapter == null) {
@@ -90,6 +102,8 @@ public class InitActivity extends AppCompatActivity {
                 // Convert the tag's ID to a hex string and display it.
                 // This is typically used to visually represent the tag's unique identifier to the user.
                 String UID = bytesToHex(tag.getId());
+                addObject(objectName, objectDesc, objectLocation, UID);
+                Log.d("NFC UID", UID);
             }
         }
     }
@@ -102,14 +116,18 @@ public class InitActivity extends AppCompatActivity {
         return sb.toString();
     }
 
-    public void setupInit(String objectName, String objectDesc, String objectLocation) {
-        addObject(objectName, objectDesc, objectLocation, UID);
-    }
-
     private void addObject(String objectName, String objectDesc, String objectLocation, String UID) {
         ObjectEntity objectEntity = new ObjectEntity(objectName, objectDesc, objectLocation, UID);
 
+        Log.d("Object Info", objectName + objectDesc + objectLocation + UID);
+
 //        ApiService apiService = RetrofitClient.getApiService();
+    }
+
+    public void onBack(View view) {
+        // Start the admin login activity
+        Intent intent = new Intent(this, AdminOptionsActivity.class);
+        startActivity(intent);
     }
 }
 

@@ -1,84 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                   xmlns:tools="http://schemas.android.com/tools"
-                                                   android:layout_width="match_parent"
-                                                   android:layout_height="match_parent">
-    <TextView
-            android:text="@string/admin_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/textView"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="79dp"
-            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintVertical_bias="0.025" android:textStyle="bold" android:layout_marginBottom="32dp"
-            android:fontFamily="@font/tiltneon"/>
-    <Button
-            android:text="@string/back_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/button"
-            android:layout_marginEnd="296dp"
-            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="25dp" app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginBottom="658dp"
-            android:onClick="onAdminBack" app:layout_constraintVertical_bias="0.036"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="27dp"
-            android:backgroundTint="#8BC34A"
-            android:fontFamily="@font/tiltneon"/>
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/username"
-        android:layout_width="362dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginBottom="33dp"
-        app:layout_constraintBottom_toTopOf="@+id/password"
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="800dp"
+        android:fontFamily="@font/tiltneon"
+        android:text="@string/admin_title"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        android:fontFamily="@font/tiltneon">
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="200dp"
+        android:layout_marginBottom="175dp"
+        android:backgroundTint="#8BC34A"
+        android:fontFamily="@font/tiltneon"
+        android:onClick="onAdminBack"
+        android:text="@string/back_btn"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/username_layout"
+        android:layout_width="370dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="22dp"
+        android:layout_marginEnd="19dp"
+        android:layout_marginBottom="600dp"
+        android:fontFamily="@font/tiltneon"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/username_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/tiltneon"
             android:hint="@string/user_hint"
-            android:fontFamily="@font/tiltneon"/>
+            android:imeOptions="actionDone"
+            android:inputType="text"
+            android:maxLength="20"
+            android:maxLines="1"
+            android:singleLine="true"
+            tools:layout_editor_absoluteY="5dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/password"
-        android:layout_width="362dp"
-        android:layout_height="54dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="33dp"
-        android:layout_marginEnd="8dp"
+        android:id="@+id/password_layout"
+        android:layout_width="370dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="21dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="400dp"
+        android:fontFamily="@font/tiltneon"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/username"
-        android:fontFamily="@font/tiltneon">
+        app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/tiltneon"
             android:hint="@string/pass_hint"
-            android:fontFamily="@font/tiltneon"/>
+            android:imeOptions="actionDone"
+            android:inputType="text"
+            android:maxLength="20"
+            android:maxLines="1"
+            android:singleLine="true"
+            tools:layout_editor_absoluteY="5dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/loginbtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="160dp"
-        android:layout_marginTop="42dp"
-        android:layout_marginEnd="163dp"
+        android:layout_marginEnd="200dp"
+        android:layout_marginBottom="175dp"
         android:onClick="onAdminLogin"
         android:text="@string/loginbtn"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password"
-        app:layout_constraintVertical_bias="0.005" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

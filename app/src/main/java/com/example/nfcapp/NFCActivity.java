@@ -13,6 +13,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.nfcapp.api.NetworkUtils;
+
 // Note: All this program currently does is scanning and retrieving a NFC UID. Other functionalities will
 // be added after this part is done.
 
@@ -28,6 +30,7 @@ public class NFCActivity extends AppCompatActivity {
 
         // Gets the default NFC reader from the device.
         nfcAdapter = NfcAdapter.getDefaultAdapter(this);
+        NetworkUtils.checkApiConnection();
         // If the device does not contain a NFC reader, a message will popup and the application will close.
         if (nfcAdapter == null) {
             Toast.makeText(this, "NFC is not available on this device.", Toast.LENGTH_LONG).show();
@@ -106,24 +109,12 @@ public class NFCActivity extends AppCompatActivity {
                 // Convert the tag's ID to a hex string and display it.
                 // This is typically used to visually represent the tag's unique identifier to the user.
                 String UID = bytesToHex(tag.getId());
-                displayNfcData(UID);
+
 
             }
         }
     }
 
-    /**
-     *
-     * Displays NFC UID by updating UI element.
-     *
-     * @param data
-     */
-    private void displayNfcData(String data) {
-        // Find the UI element to update
-        TextView tvNfcData = findViewById(R.id.tvNfcData);
-        // Sets text of the specified UI element.
-        tvNfcData.setText(data);
-    }
 
     private void displayObjectData(String UID) {
         // Use GetObjectByNFCID API Function to display Object Info.

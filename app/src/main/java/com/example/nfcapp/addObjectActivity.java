@@ -16,11 +16,14 @@ import com.example.nfcapp.model.ObjectEntity;
 public class addObjectActivity extends AppCompatActivity {
 
     private InitActivity initActivity;
-
     private EditText editTextObjectName;
     private EditText editTextObjectDesc;
     private EditText editTextObjectLocation;
     private Button buttonAddObject;
+
+    public String objectName;
+    public String objectDesc;
+    public String objectLocation;
 
 
     @Override
@@ -32,17 +35,23 @@ public class addObjectActivity extends AppCompatActivity {
         editTextObjectDesc = findViewById(R.id.desc_input);
         editTextObjectLocation = findViewById(R.id.location_input);
 
-        buttonAddObject.setOnClickListener(v -> onAddObjectClicked());
     }
 
-    public void onAddObjectClicked() {
-        String objectName = editTextObjectName.getText().toString();
-        String objectDesc = editTextObjectDesc.getText().toString();
-        String objectLocation = editTextObjectLocation.getText().toString();
-
-        initActivity.setupInit(objectName, objectDesc, objectLocation);
+    public void onAddObjectClicked(View view) {
+        objectName = editTextObjectName.getText().toString();
+        objectDesc = editTextObjectDesc.getText().toString();
+        objectLocation = editTextObjectLocation.getText().toString();
 
         Intent intent = new Intent(this, InitActivity.class);
+        intent.putExtra("objectName", objectName);
+        intent.putExtra("objectDesc", objectDesc);
+        intent.putExtra("objectLocation", objectLocation);
+        startActivity(intent);
+    }
+
+    public void onBackObject(View view) {
+        // Start the admin login activity
+        Intent intent = new Intent(this, AdminOptionsActivity.class);
         startActivity(intent);
     }
 

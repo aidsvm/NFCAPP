@@ -10,84 +10,121 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="171dp"
-        android:layout_marginTop="108dp"
-        android:layout_marginEnd="171dp"
-        android:layout_marginBottom="109dp"
+        android:layout_marginEnd="170dp"
+        android:layout_marginBottom="800dp"
+        android:fontFamily="@font/tiltneon"
         android:text="@string/addobjtitle"
-        app:layout_constraintBottom_toTopOf="@+id/name_input"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:fontFamily="@font/tiltneon"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/name_input"
+        android:id="@+id/name_input_layout"
         android:layout_width="337dp"
         android:layout_height="59dp"
         android:layout_marginStart="37dp"
         android:layout_marginEnd="37dp"
-        android:layout_marginBottom="36dp"
-        app:layout_constraintBottom_toTopOf="@+id/location_input"
+        android:layout_marginBottom="550dp"
+        android:fontFamily="@font/tiltneon"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:fontFamily="@font/tiltneon">
+        app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/name_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/tiltneon"
             android:hint="@string/name_inp"
-            android:fontFamily="@font/tiltneon"/>
+            android:imeOptions="actionDone"
+            android:inputType="text"
+            android:maxLength="20"
+            android:maxLines="1"
+            android:singleLine="true"
+            tools:layout_editor_absoluteY="6dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/location_input"
+        android:id="@+id/location_input_layout"
         android:layout_width="337dp"
         android:layout_height="59dp"
         android:layout_marginStart="37dp"
         android:layout_marginEnd="37dp"
-        android:layout_marginBottom="29dp"
-        app:layout_constraintBottom_toTopOf="@+id/desc_input"
+        android:layout_marginBottom="400dp"
+        android:fontFamily="@font/tiltneon"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:fontFamily="@font/tiltneon">
+        app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/location_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/tiltneon"
             android:hint="@string/location_inp"
-            android:fontFamily="@font/tiltneon"/>
+            android:imeOptions="actionDone"
+            android:inputType="text"
+            android:maxLength="50"
+            android:maxLines="1"
+            android:singleLine="true"
+            tools:layout_editor_absoluteY="5dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/desc_input"
+        android:id="@+id/desc_input_layout"
         android:layout_width="337dp"
         android:layout_height="59dp"
         android:layout_marginStart="37dp"
         android:layout_marginEnd="37dp"
-        android:layout_marginBottom="46dp"
-        app:layout_constraintBottom_toTopOf="@+id/addobj_bt"
+        android:layout_marginBottom="250dp"
+        android:fontFamily="@font/tiltneon"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:fontFamily="@font/tiltneon">
+        app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/desc_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/tiltneon"
             android:hint="@string/desc_inp"
-            android:fontFamily="@font/tiltneon"/>
+            android:imeOptions="actionDone"
+            android:inputType="text"
+            android:maxLength="100"
+            android:maxLines="1"
+            android:singleLine="true"
+            tools:layout_editor_absoluteY="5dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/addobj_bt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="161dp"
-        android:layout_marginEnd="162dp"
-        android:layout_marginBottom="434dp"
+        android:layout_marginEnd="100dp"
+        android:layout_marginBottom="75dp"
+        android:fontFamily="@font/tiltneon"
+        android:onClick="onAddObjectClicked"
         android:text="@string/addbtn"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:fontFamily="@font/tiltneon"
-        android:onClick="onAddObjectClicked"/>
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/objectback"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginBottom="75dp"
+        android:text="@string/back_btn"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:onClick="onBackObject"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

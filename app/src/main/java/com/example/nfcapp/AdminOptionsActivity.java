@@ -32,4 +32,14 @@ public class AdminOptionsActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void onAdminDelete() {
+
+    }
+
+    public void onBackOptions(View view) {
+        // Start the admin login activity
+        Intent intent = new Intent(this, NFCActivity.class);
+        startActivity(intent);
+    }
+
 }
