@@ -15,40 +15,37 @@ public interface ApiService {
     Call<List<ObjectEntity>> getAllObjects();
 
     @FormUrlEncoded
-    @POST("addObject")
+    @POST("admin/addObject")
     Call<ObjectEntity> addObject(@Field("objectName") String objectName,
                                  @Field("objectDesc") String objectDesc,
                                  @Field("objectLocation") String objectLocation);
 
-    @GET("getObjectInfoByNfcId")
+    @GET("objects/getObjectInfoByNfcId")
     Call<ObjectEntity> getObjectInfoByNfcId(@Query("NfcId") String nfcId);
 
     @FormUrlEncoded
-    @POST("register")
+    @POST("admin/register")
     Call<AdminEntity> registerAdmin(@Field("username") String username,
                                     @Field("password") String password);
 
+
+    @POST("admin/login")
+    Call<LoginResponse> loginAdmin(@Body LoginDto login);
+
     @FormUrlEncoded
-    @POST("login")
-    Call<AdminEntity> loginAdmin(@Field("username") String username,
-                                 @Field("password") String password);
-    @FormUrlEncoded
-    @POST("assignNfc")
+    @POST("admin/assignNfc")
     Call<ObjectEntity> assignNfc(@Body AssignNfcRequest assignNfcRequest);
 
     @FormUrlEncoded
-    @POST("removeObject")
+    @POST("admin/removeObject")
     Call<ObjectEntity> removeObject(@Body ObjectEntity objectEntity);
 
     @FormUrlEncoded
-    @POST("addNfc")
+    @POST("nfc/addNfc")
     Call<NFCEntity> addNfc(@Field("nfcId") String nfcId);
 
     @GET("endpoint")
     Call<Object> checkConnection();
-
-
-
 
 
 }

@@ -17,6 +17,10 @@ import com.example.nfcapp.api.ApiService;
 import com.example.nfcapp.api.RetrofitClient;
 import com.example.nfcapp.model.ObjectEntity;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class InitActivity extends AppCompatActivity {
 
     private NfcAdapter nfcAdapter;
@@ -121,7 +125,23 @@ public class InitActivity extends AppCompatActivity {
 
         Log.d("Object Info", objectName + objectDesc + objectLocation + UID);
 
-//        ApiService apiService = RetrofitClient.getApiService();
+        ApiService apiService = RetrofitClient.getApiService();
+        Call<ObjectEntity> call = apiService.addObject(objectName, objectDesc, objectLocation);
+        call.enqueue(new Callback<ObjectEntity>() {
+            @Override
+            public void onResponse(Call<ObjectEntity> call, Response<ObjectEntity> response) {
+                if (response.isSuccessful()) {
+                    Log.d("API Response", "Object added successfully!");
+                } else {
+                    Log.d("API Error", "Failed to add object " + response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ObjectEntity> call, Throwable t) {
+                Log.d("API Failure", "Error: " + t.getMessage());
+            }
+        });
     }
 
     public void onBack(View view) {

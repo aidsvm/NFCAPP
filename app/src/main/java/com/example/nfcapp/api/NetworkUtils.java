@@ -9,7 +9,7 @@ import retrofit2.Response;
 public class NetworkUtils {
 
     public static void checkApiConnection() {
-        ApiService service = RetrofitClient.getClient().create(ApiService.class);
+        ApiService service = RetrofitClient.getApiService();
         Call<Object> call = service.checkConnection();
         call.enqueue(new Callback<Object>() {
             @Override

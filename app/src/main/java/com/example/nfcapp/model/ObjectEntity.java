@@ -39,7 +39,7 @@ public class ObjectEntity {
         this.objectLocation = objectLocation;
     }
 
-    public String getNfcUID() {
+    public String getUID() {
         return nfcUID;
     }
 
