@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_background">
 
     <TextView
         android:id="@+id/textView"
@@ -16,7 +17,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:textColor="@color/white"/>
 
     <Button
         android:id="@+id/button"
@@ -24,14 +26,16 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="200dp"
         android:layout_marginBottom="175dp"
-        android:backgroundTint="#8BC34A"
+        android:backgroundTint="#3c7055"
         android:fontFamily="@font/tiltneon"
         android:onClick="onAdminBack"
         android:text="@string/back_btn"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:textColor="@color/white"
+        />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/username_layout"
@@ -44,7 +48,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:textColor="@color/white">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/username_input"
@@ -57,7 +62,8 @@
             android:maxLength="20"
             android:maxLines="1"
             android:singleLine="true"
-            tools:layout_editor_absoluteY="5dp" />
+            tools:layout_editor_absoluteY="5dp"
+            android:textColor="@color/white"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -71,7 +77,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:textColor="@color/white">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/password"
@@ -84,7 +91,8 @@
             android:maxLength="20"
             android:maxLines="1"
             android:singleLine="true"
-            tools:layout_editor_absoluteY="5dp" />
+            tools:layout_editor_absoluteY="5dp"
+            android:textColor="@color/white"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
@@ -98,6 +106,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:textColor="@color/white"
+        android:backgroundTint="#221738"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

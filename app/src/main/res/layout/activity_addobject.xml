@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_background">
 
     <TextView
         android:id="@+id/add_title"
@@ -17,7 +18,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:textColor="@color/white"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/name_input_layout"
@@ -30,7 +32,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:textColor="@color/white">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/name_input"
@@ -43,7 +46,8 @@
             android:maxLength="20"
             android:maxLines="1"
             android:singleLine="true"
-            tools:layout_editor_absoluteY="6dp" />
+            tools:layout_editor_absoluteY="6dp"
+            android:textColor="@color/white"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -57,7 +61,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:textColor="@color/white">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/location_input"
@@ -70,7 +75,8 @@
             android:maxLength="50"
             android:maxLines="1"
             android:singleLine="true"
-            tools:layout_editor_absoluteY="5dp" />
+            tools:layout_editor_absoluteY="5dp"
+            android:textColor="@color/white"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -84,7 +90,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:textColor="@color/white">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/desc_input"
@@ -97,7 +104,8 @@
             android:maxLength="100"
             android:maxLines="1"
             android:singleLine="true"
-            tools:layout_editor_absoluteY="5dp" />
+            tools:layout_editor_absoluteY="5dp"
+            android:textColor="@color/white"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
@@ -112,7 +120,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:textColor="@color/white"/>
 
     <Button
         android:id="@+id/objectback"
@@ -125,6 +134,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:onClick="onBackObject"/>
+        android:onClick="onBackObject"
+        android:textColor="@color/white"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

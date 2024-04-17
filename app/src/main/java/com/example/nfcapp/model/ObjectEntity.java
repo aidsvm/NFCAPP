@@ -4,15 +4,15 @@ public class ObjectEntity {
     private String objectName;
     private String objectDesc;
     private String objectLocation;
-    private String nfcUID;
+    private String nfcId;
 
     public ObjectEntity() {}
 
-    public ObjectEntity(String objectName, String objectDesc, String objectLocation, String nfcUID) {
+    public ObjectEntity(String objectName, String objectDesc, String objectLocation, String nfcId) {
         this.objectName = objectName;
         this.objectDesc = objectDesc;
         this.objectLocation = objectLocation;
-        this.nfcUID = nfcUID;
+        this.nfcId = nfcId;
     }
 
     public String getObjectName() {
@@ -39,11 +39,11 @@ public class ObjectEntity {
         this.objectLocation = objectLocation;
     }
 
-    public String getUID() {
-        return nfcUID;
+    public String getId() {
+        return nfcId;
     }
 
-    public void setNfcUID(String nfcUID) {
-        this.nfcUID = nfcUID;
+    public void setNfcId(String nfcUID) {
+        this.nfcId = nfcId;
     }
 }

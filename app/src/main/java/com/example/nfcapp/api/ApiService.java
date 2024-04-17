@@ -11,14 +11,12 @@ import retrofit2.Call;
 import retrofit2.http.*;
 
 public interface ApiService {
-    @GET("objects")
+    @GET("admin/getAllObjects")
     Call<List<ObjectEntity>> getAllObjects();
 
     @FormUrlEncoded
     @POST("admin/addObject")
-    Call<ObjectEntity> addObject(@Field("objectName") String objectName,
-                                 @Field("objectDesc") String objectDesc,
-                                 @Field("objectLocation") String objectLocation);
+    Call<ObjectEntity> addObject(@Body ObjectDto objectDto);
 
     @GET("objects/getObjectInfoByNfcId")
     Call<ObjectEntity> getObjectInfoByNfcId(@Query("NfcId") String nfcId);

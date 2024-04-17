@@ -14,7 +14,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/tvObjectLocation"
-        android:layout_marginEnd="8dp"/>
+        android:layout_marginEnd="8dp"
+        android:textColor="@color/white"/>
 
     <TextView
         android:id="@+id/tvObjectLocation"
@@ -24,7 +25,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tvObjectName"
         app:layout_constraintEnd_toStartOf="@+id/tvObjectDesc"
-        android:layout_marginEnd="8dp"/>
+        android:layout_marginEnd="8dp"
+        android:textColor="@color/white"/>
 
     <TextView
         android:id="@+id/tvObjectDesc"
@@ -34,15 +36,17 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tvObjectLocation"
         app:layout_constraintEnd_toStartOf="@+id/tvUID"
-        android:layout_marginEnd="8dp"/>
+        android:layout_marginEnd="8dp"
+        android:textColor="@color/white"/>
 
     <TextView
         android:id="@+id/tvUID"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="UID"
-        app:layout_constraintTop_toTopOf="parent"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tvObjectDesc"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

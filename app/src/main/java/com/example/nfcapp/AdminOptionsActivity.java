@@ -2,6 +2,7 @@ package com.example.nfcapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -86,6 +87,11 @@ public class AdminOptionsActivity extends AppCompatActivity implements ObjectAda
                     objectList.clear();
                     objectList.addAll(response.body());
                     adapter.notifyDataSetChanged(); // Refresh the adapter
+
+                    for (ObjectEntity object : objectList) {
+                        Log.d("AdminOptionsActivity", "Object NAME: " + object.getObjectName());
+                        Log.d("AdminOptionsActivity", "Object UID: " + object.getId());
+                    }
                 } else {
                     Toast.makeText(AdminOptionsActivity.this, "Failed to fetch objects", Toast.LENGTH_SHORT).show();
                 }
@@ -102,10 +108,6 @@ public class AdminOptionsActivity extends AppCompatActivity implements ObjectAda
         // Go back to add object page
         Intent intent = new Intent(this, addObjectActivity.class);
         startActivity(intent);
-    }
-
-    public void onAdminDelete() {
-
     }
 
     public void onBackOptions(View view) {

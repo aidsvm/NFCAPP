@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.nfcapp.api.ApiService;
+import com.example.nfcapp.api.ObjectDto;
 import com.example.nfcapp.api.RetrofitClient;
 import com.example.nfcapp.model.ObjectEntity;
 
@@ -106,7 +107,7 @@ public class InitActivity extends AppCompatActivity {
                 // Convert the tag's ID to a hex string and display it.
                 // This is typically used to visually represent the tag's unique identifier to the user.
                 String UID = bytesToHex(tag.getId());
-                addObject(objectName, objectDesc, objectLocation, UID);
+                addObject(objectName, objectDesc, objectLocation);
                 Log.d("NFC UID", UID);
             }
         }
@@ -120,13 +121,13 @@ public class InitActivity extends AppCompatActivity {
         return sb.toString();
     }
 
-    private void addObject(String objectName, String objectDesc, String objectLocation, String UID) {
-        ObjectEntity objectEntity = new ObjectEntity(objectName, objectDesc, objectLocation, UID);
+    private void addObject(String objectName, String objectDesc, String objectLocation) {
+        ObjectDto objectDto = new ObjectDto(objectName, objectDesc, objectLocation);
 
         Log.d("Object Info", objectName + objectDesc + objectLocation + UID);
 
         ApiService apiService = RetrofitClient.getApiService();
-        Call<ObjectEntity> call = apiService.addObject(objectName, objectDesc, objectLocation);
+        Call<ObjectEntity> call = apiService.addObject(objectDto);
         call.enqueue(new Callback<ObjectEntity>() {
             @Override
             public void onResponse(Call<ObjectEntity> call, Response<ObjectEntity> response) {

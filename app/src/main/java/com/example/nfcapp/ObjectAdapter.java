@@ -42,7 +42,7 @@ public class ObjectAdapter extends RecyclerView.Adapter<ObjectAdapter.ViewHolder
         holder.tvObjectName.setText(object.getObjectName());
         holder.tvObjectLocation.setText(object.getObjectLocation());
         holder.tvObjectDesc.setText(object.getObjectDesc());
-        holder.tvUID.setText(object.getUID());
+        holder.tvUID.setText(object.getId());
     }
 
     @Override
