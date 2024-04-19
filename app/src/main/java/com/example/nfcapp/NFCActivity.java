@@ -13,7 +13,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.nfcapp.api.ApiService;
 import com.example.nfcapp.api.NetworkUtils;
+import com.example.nfcapp.api.RetrofitClient;
+import com.example.nfcapp.model.ObjectEntity;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 // Note: All this program currently does is scanning and retrieving a NFC UID. Other functionalities will
 // be added after this part is done.
@@ -64,8 +71,6 @@ public class NFCActivity extends AppCompatActivity {
         nfcAdapter.enableForegroundDispatch(this, pendingIntent, intentFiltersArray, techListsArray);
     }
 
-
-
     @Override
     protected void onPause() {
         super.onPause();
@@ -83,6 +88,13 @@ public class NFCActivity extends AppCompatActivity {
         handleIntent(intent);
 
     }
+
+    /**
+     * Handles the NFC intent when a new technology (NFC tag) is discovered.
+     * This will then extract the NFC UID, and then passes the UID into
+     * te retrieveObjectInfo function.
+     * @param intent
+     */
 
     private void handleIntent(Intent intent) {
         // Retrieve the action from the intent to determine the type of NFC interaction.
@@ -109,23 +121,71 @@ public class NFCActivity extends AppCompatActivity {
                 // Convert the tag's ID to a hex string and display it.
                 // This is typically used to visually represent the tag's unique identifier to the user.
                 String UID = bytesToHex(tag.getId());
-
-
+                // Calls the function with the specified UID to retrieve the object information based off of it.
+                retrieveObjectInfo(UID);
             }
         }
     }
 
+    /**
+     * This function calls the API function getObjectInfoByNfcId with the extracted UID
+     * of the NFC card. It initializes an ObjectEntity with the object from the database
+     * that matches the UID and extracts the objectName, objectDesc, and objectLocation
+     * and passes it into the displayObjectData function.
+     * @param UID: NFC ID
+     */
 
-    private void displayObjectData(String UID) {
+    private void retrieveObjectInfo (String UID) {
+        ApiService apiService = RetrofitClient.getApiService();
+        Call<ObjectEntity> call = apiService.getObjectInfoByNfcId(UID);
+
+        call.enqueue(new Callback<ObjectEntity>() {
+            @Override
+            public void onResponse(Call<ObjectEntity> call, Response<ObjectEntity> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    ObjectEntity object = response.body();
+                    String objectName = object.getObjectName();
+                    String objectDesc = object.getObjectDesc();
+                    String objectLocation = object.getObjectLocation();
+                    displayObjectData(objectName, objectDesc, objectLocation);
+                } else {
+                    Log.d("API Error", "Failed to add object " + response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ObjectEntity> call, Throwable t) {
+                Log.d("API Failure", "Error: " + t.getMessage());
+            }
+        });
+
+    }
+
+    /**
+     *
+     * This function takes the parameters from the retrieved object and displays it to the
+     * UI.
+     * @param objectName: Name of the object
+     * @param objectDesc: Description of the object
+     * @param objectLocation: Location of the object
+     */
+    private void displayObjectData(String objectName, String objectDesc, String objectLocation) {
         // Use GetObjectByNFCID API Function to display Object Info.
+        TextView nameOutput = findViewById(R.id.name_output);
+        TextView descOutput = findViewById(R.id.desc_output);
+        TextView locationOutput = findViewById(R.id.location_output);
+
+        nameOutput.setText(objectName);
+        descOutput.setText(objectDesc);
+        locationOutput.setText(objectLocation);
     }
 
     /**
      *
      * Converts the UID (which is in bytes) to Hex.
      *
-     * @param bytes
-     * @return
+     * @param bytes: takes in the initial state of the UID
+     * @return the properly formatted UID
      */
     private String bytesToHex(byte[] bytes) {
         StringBuilder sb = new StringBuilder();

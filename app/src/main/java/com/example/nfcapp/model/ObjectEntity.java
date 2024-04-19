@@ -8,11 +8,10 @@ public class ObjectEntity {
 
     public ObjectEntity() {}
 
-    public ObjectEntity(String objectName, String objectDesc, String objectLocation, String nfcId) {
+    public ObjectEntity(String objectName, String objectDesc, String objectLocation) {
         this.objectName = objectName;
         this.objectDesc = objectDesc;
         this.objectLocation = objectLocation;
-        this.nfcId = nfcId;
     }
 
     public String getObjectName() {

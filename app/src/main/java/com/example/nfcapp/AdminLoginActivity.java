@@ -33,12 +33,24 @@ public class AdminLoginActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Handles the back intent, goes back the the main page.
+     * @param view
+     */
     public void onAdminBack(View view) {
         // Start the admin login activity
         Intent intent = new Intent(this, NFCActivity.class);
         startActivity(intent);
     }
 
+    /**
+     * This function will retrieve the data from the admin specified inputs (username, password)
+     * and will call the API function loginAdmin with the given inputs.
+     * This API function will compare the username and password with the username and password
+     * that is specified in the database. If successful login, this function will send the admin to
+     * the options page.
+     * @param view
+     */
     public void onAdminLogin(View view) {
         editTextUsername = findViewById(R.id.username_input);
         editTextPassword = findViewById(R.id.password);
@@ -71,7 +83,4 @@ public class AdminLoginActivity extends AppCompatActivity {
             }
         });
     }
-
-
-
 }

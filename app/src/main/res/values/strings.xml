@@ -16,7 +16,7 @@
     <string name="options">Objects</string>
     <string name="loginbtn">Login</string>
     <string name="backtoscanbtn">Scan</string>
-    <string name="addobjtitle">Add Object</string>
+    <string name="addobjtitle">Add</string>
     <string name="addbtn">Add</string>
     <string name="name_inp">Name</string>
     <string name="location_inp">Location</string>

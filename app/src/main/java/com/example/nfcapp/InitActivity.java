@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.nfcapp.api.ApiService;
 import com.example.nfcapp.api.ObjectDto;
 import com.example.nfcapp.api.RetrofitClient;
+import com.example.nfcapp.model.AssignNfcRequest;
 import com.example.nfcapp.model.ObjectEntity;
 
 import retrofit2.Call;
@@ -97,7 +98,6 @@ public class InitActivity extends AppCompatActivity {
             Tag tag = null; // Initialize the tag object to null.
 
             // Check the SDK version to use the appropriate method to retrieve the Tag object.
-            // For Android Tiramisu (API level 33) and above, use the type-safe method to get the Tag object.
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
                 tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG, Tag.class);
             }
@@ -105,11 +105,62 @@ public class InitActivity extends AppCompatActivity {
             // If a Tag object was successfully retrieved, process it.
             if (tag != null) {
                 // Convert the tag's ID to a hex string and display it.
-                // This is typically used to visually represent the tag's unique identifier to the user.
+                // This is used to display the NFC UID in a readable/usable way for the user.
                 String UID = bytesToHex(tag.getId());
-                addObject(objectName, objectDesc, objectLocation);
+                ObjectDto objectDto = new ObjectDto(objectName, objectDesc, objectLocation);
+
+                addObject(objectDto, UID);
                 Log.d("NFC UID", UID);
             }
+        }
+    }
+
+    private void addObject(ObjectDto objectDto, String UID) {
+        ApiService apiService = RetrofitClient.getApiService();
+        Call<ObjectEntity> call = apiService.addObject(objectDto);
+        call.enqueue(new Callback<ObjectEntity>() {
+            @Override
+            public void onResponse(Call<ObjectEntity> call, Response<ObjectEntity> response) {
+                if (response.isSuccessful() && response.body() != null && response.body().getId() == null) {
+                    Log.d("API Response", "Object added successfully with ID: " + response.body().getId());
+                    // The object has been added, now assign the NFC ID
+                    assignNFC(response.body(), UID);
+                } else {
+                    Log.e("API Error", "Failed to add object or ID is null: HTTP " + response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ObjectEntity> call, Throwable t) {
+                Log.e("API Failure", "Error: " + t.getMessage());
+            }
+        });
+    }
+
+    private void assignNFC(ObjectEntity objectEntity, String UID) {
+        if (objectEntity != null && objectEntity.getId() == null && UID != null) {
+            ObjectDto updatedObjectDto = new ObjectDto(objectEntity.getObjectName(), objectEntity.getObjectDesc(), objectEntity.getObjectLocation());
+            AssignNfcRequest assignNfcRequest = new AssignNfcRequest(updatedObjectDto, UID);
+
+            ApiService apiService = RetrofitClient.getApiService();
+            Call<ObjectEntity> call = apiService.assignNfc(assignNfcRequest);
+            call.enqueue(new Callback<ObjectEntity>() {
+                @Override
+                public void onResponse(Call<ObjectEntity> call, Response<ObjectEntity> response) {
+                    if (response.isSuccessful()) {
+                        Log.d("API Response", "NFC assigned successfully!");
+                    } else {
+                        Log.e("API Error", "Failed to assign NFC: HTTP " + response.code());
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ObjectEntity> call, Throwable t) {
+                    Log.e("API Failure", "Error: " + t.getMessage());
+                }
+            });
+        } else {
+            Log.e("NFC Error", "Cannot assign NFC ID: ObjectEntity is null or ID is null.");
         }
     }
 
@@ -119,30 +170,6 @@ public class InitActivity extends AppCompatActivity {
             sb.append(String.format("%02x", b));
         }
         return sb.toString();
-    }
-
-    private void addObject(String objectName, String objectDesc, String objectLocation) {
-        ObjectDto objectDto = new ObjectDto(objectName, objectDesc, objectLocation);
-
-        Log.d("Object Info", objectName + objectDesc + objectLocation + UID);
-
-        ApiService apiService = RetrofitClient.getApiService();
-        Call<ObjectEntity> call = apiService.addObject(objectDto);
-        call.enqueue(new Callback<ObjectEntity>() {
-            @Override
-            public void onResponse(Call<ObjectEntity> call, Response<ObjectEntity> response) {
-                if (response.isSuccessful()) {
-                    Log.d("API Response", "Object added successfully!");
-                } else {
-                    Log.d("API Error", "Failed to add object " + response.code());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ObjectEntity> call, Throwable t) {
-                Log.d("API Failure", "Error: " + t.getMessage());
-            }
-        });
     }
 
     public void onBack(View view) {

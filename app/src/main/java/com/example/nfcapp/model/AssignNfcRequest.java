@@ -1,22 +1,24 @@
 package com.example.nfcapp.model;
 
+import com.example.nfcapp.api.ObjectDto;
+
 public class AssignNfcRequest {
-    private ObjectEntity objectEntity;
+    private ObjectDto objectDto;
     private String nfcUID;
 
     // Constructors
-    public AssignNfcRequest(ObjectEntity objectEntity, String nfcUid) {
-        this.objectEntity = objectEntity;
+    public AssignNfcRequest(ObjectDto objectDto, String nfcUid) {
+        this.objectDto = objectDto;
         this.nfcUID = nfcUID;
     }
 
     // Getters and setters
-    public ObjectEntity getObjectEntity() {
-        return objectEntity;
+    public ObjectDto getObjectEntity() {
+        return objectDto;
     }
 
-    public void setObjectEntity(ObjectEntity objectEntity) {
-        this.objectEntity = objectEntity;
+    public void setObjectEntity(ObjectDto objectDto) {
+        this.objectDto = objectDto;
     }
 
     public String getNfcUid() {
