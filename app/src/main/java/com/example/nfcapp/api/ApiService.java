@@ -26,15 +26,11 @@ public interface ApiService {
     @POST("admin/login")
     Call<LoginResponse> loginAdmin(@Body LoginDto loginDto);
 
-    @POST("admin/assignNfc")
-    Call<ObjectEntity> assignNfc(@Body AssignNfcRequest assignNfcRequest);
-
     @DELETE("admin/removeObject")
     Call<Void> removeObject(@Query("objectId") Long id);
 
-    @FormUrlEncoded
     @POST("nfc/addNfc")
-    Call<NFCEntity> addNfc(@Field("nfcId") String nfcId);
+    Call<String> addNfc(@Query("nfcId") String nfcId);
 
 
 }

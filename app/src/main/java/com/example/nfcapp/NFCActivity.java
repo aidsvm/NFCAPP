@@ -149,6 +149,7 @@ public class NFCActivity extends AppCompatActivity {
                     String objectLocation = object.getObjectLocation();
                     displayObjectData(objectName, objectDesc, objectLocation);
                 } else {
+                    Toast.makeText(NFCActivity.this, "Failed to retrieve object: " + response.code(), Toast.LENGTH_LONG).show();
                     Log.d("API Error", "Failed to retrieve object: " + response.code());
                 }
             }

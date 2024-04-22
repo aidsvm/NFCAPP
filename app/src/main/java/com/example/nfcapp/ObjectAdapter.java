@@ -42,7 +42,7 @@ public class ObjectAdapter extends RecyclerView.Adapter<ObjectAdapter.ViewHolder
         holder.tvObjectLocation.setText(object.getObjectLocation());
         holder.tvUID.setText(object.getNfcId());
 
-        holder.itemView.setBackgroundColor(selectedItemPosition == position ? Color.LTGRAY : Color.WHITE); // Change color on selection
+        holder.itemView.setBackgroundColor(selectedItemPosition == position ? Color.rgb(144 ,238, 144) : Color.TRANSPARENT); // Change color on selection
 
         holder.itemView.setOnClickListener(view -> {
             selectedItemPosition = position;

@@ -127,7 +127,7 @@ public class InitActivity extends AppCompatActivity {
                     ObjectEntity object = response.body();
                     message = "Object Added Successfully!";
                     Log.d("API Response", "Object added successfully with ID: " + object.getObjectId());
-                     // Now passing the entire object
+                    addNfc(objectDto.getNfcId());
                 } else {
                     if (response.code() == 409) {
                         Toast.makeText(InitActivity.this, "NFC ID already exists in the database.", Toast.LENGTH_LONG).show();
@@ -148,6 +148,32 @@ public class InitActivity extends AppCompatActivity {
         });
     }
 
+    private void addNfc(String UID) {
+        ApiService apiService = RetrofitClient.getApiService();
+        Call<String> call = apiService.addNfc(UID);
+
+        call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                if(response.isSuccessful()) {
+                    Log.d("addNfc", "Add NFC successful!");
+                }
+
+                else {
+                    Log.d("addNfc", "Add NFC not successful!");
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                Log.e("API Failure", "Error: " + t.getMessage());
+            }
+        });
+
+
+
+    }
 
     private String bytesToHex(byte[] bytes) {
         StringBuilder sb = new StringBuilder();
