@@ -10,11 +10,9 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.nfcapp.api.ApiService;
-import com.example.nfcapp.api.LoginDto;
+import com.example.nfcapp.model.LoginDto;
 import com.example.nfcapp.api.LoginResponse;
 import com.example.nfcapp.api.RetrofitClient;
-import com.example.nfcapp.model.AdminEntity;
-import com.example.nfcapp.model.ObjectEntity;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -60,6 +58,7 @@ public class AdminLoginActivity extends AppCompatActivity {
 
         ApiService apiService = RetrofitClient.getApiService();
         LoginDto loginDto = new LoginDto(adminUsername, adminPassword);
+
         Call<LoginResponse> call = apiService.loginAdmin(loginDto);
 
         call.enqueue(new Callback<LoginResponse>() {

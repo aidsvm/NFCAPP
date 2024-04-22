@@ -1,8 +1,9 @@
 package com.example.nfcapp.api;
 
-import com.example.nfcapp.model.AdminEntity;
 import com.example.nfcapp.model.AssignNfcRequest;
+import com.example.nfcapp.model.LoginDto;
 import com.example.nfcapp.model.NFCEntity;
+import com.example.nfcapp.model.ObjectAdminDto;
 import com.example.nfcapp.model.ObjectEntity;
 
 import java.util.List;
@@ -15,25 +16,25 @@ public interface ApiService {
     Call<List<ObjectEntity>> getAllObjects();
 
     @POST("admin/addObject")
-    Call<ObjectEntity> addObject(@Body ObjectDto objectDto);
+    Call<ObjectEntity> addObject(@Body ObjectAdminDto objectAdminDto);
 
     @GET("objects/getObjectInfoByNfcId")
     Call<ObjectEntity> getObjectInfoByNfcId(@Query("NfcId") String nfcId);
 
 
     @POST("admin/login")
-    Call<LoginResponse> loginAdmin(@Body LoginDto login);
+    Call<LoginResponse> loginAdmin(@Body LoginDto loginDto);
 
     @POST("admin/assignNfc")
     Call<ObjectEntity> assignNfc(@Body AssignNfcRequest assignNfcRequest);
 
-    @FormUrlEncoded
-    @POST("admin/removeObject")
-    Call<ObjectEntity> removeObject(@Body ObjectEntity objectEntity);
+    @DELETE("admin/removeObject")
+    Call<Void> removeObject(@Query("objectId") Long id);
 
     @FormUrlEncoded
     @POST("nfc/addNfc")
     Call<NFCEntity> addNfc(@Field("nfcId") String nfcId);
+
 
 }
 

@@ -26,7 +26,6 @@ public class AdminOptionsActivity extends AppCompatActivity implements ObjectAda
 
     private RecyclerView recyclerView;
     private ObjectAdapter adapter;
-
     private List<ObjectEntity> objectList = new ArrayList<>();
 
     private ObjectEntity selectedObject;
@@ -41,27 +40,26 @@ public class AdminOptionsActivity extends AppCompatActivity implements ObjectAda
         adapter = new ObjectAdapter(objectList, this);
         recyclerView.setAdapter(adapter);
 
-        Button deleteButton = findViewById(R.id.deleteobjectbtn);
-        deleteButton.setOnClickListener(v -> deleteSelectedObject());
-
         fetchObjectsFromAPI();
     }
 
     @Override
     public void onItemClick(ObjectEntity object) {
         selectedObject = object; // Update the selected object
+        adapter.notifyDataSetChanged();
+        Log.d("Selected Object", selectedObject.getObjectName());
     }
 
-    private void deleteSelectedObject() {
+    public void deleteSelectedObject(View view) {
         if (selectedObject != null) {
             ApiService apiService = RetrofitClient.getApiService();
-            Call<ObjectEntity> call = apiService.removeObject(selectedObject);
-            call.enqueue(new Callback<ObjectEntity>() {
+            Log.d("ID", selectedObject.getObjectId().toString());
+            Call<Void> call = apiService.removeObject(selectedObject.getObjectId());
+            call.enqueue(new Callback<Void>() {
                 @Override
-                public void onResponse(Call<ObjectEntity> call, Response<ObjectEntity> response) {
+                public void onResponse(Call<Void> call, Response<Void> response) {
                     if (response.isSuccessful()) {
-                        adapter.objects.remove(selectedObject);
-                        adapter.notifyDataSetChanged();
+                        // Refresh your list or UI here if necessary
                         Toast.makeText(AdminOptionsActivity.this, "Object deleted successfully", Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(AdminOptionsActivity.this, "Failed to delete object", Toast.LENGTH_SHORT).show();
@@ -69,10 +67,12 @@ public class AdminOptionsActivity extends AppCompatActivity implements ObjectAda
                 }
 
                 @Override
-                public void onFailure(Call<ObjectEntity> call, Throwable t) {
+                public void onFailure(Call<Void> call, Throwable t) {
                     Toast.makeText(AdminOptionsActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
+        } else {
+            Toast.makeText(AdminOptionsActivity.this, "No object selected", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -87,10 +87,9 @@ public class AdminOptionsActivity extends AppCompatActivity implements ObjectAda
                     objectList.clear();
                     objectList.addAll(response.body());
                     adapter.notifyDataSetChanged(); // Refresh the adapter
-
                     for (ObjectEntity object : objectList) {
                         Log.d("AdminOptionsActivity", "Object NAME: " + object.getObjectName());
-                        Log.d("AdminOptionsActivity", "Object UID: " + object.getId());
+                        Log.d("AdminOptionsActivity", "Object UID: " + object.getNfcId());
                     }
                 } else {
                     Toast.makeText(AdminOptionsActivity.this, "Failed to fetch objects", Toast.LENGTH_SHORT).show();

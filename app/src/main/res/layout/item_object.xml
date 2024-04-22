@@ -10,43 +10,35 @@
         android:id="@+id/tvObjectName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Object Name"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/tvObjectLocation"
         android:layout_marginEnd="8dp"
-        android:textColor="@color/white"/>
+        android:text="Object Name"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toStartOf="@+id/tvObjectLocation"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvObjectLocation"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="114dp"
+        android:layout_height="19dp"
+        android:layout_marginEnd="8dp"
         android:text="Location"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tvObjectName"
-        app:layout_constraintEnd_toStartOf="@+id/tvObjectDesc"
-        android:layout_marginEnd="8dp"
-        android:textColor="@color/white"/>
-
-    <TextView
-        android:id="@+id/tvObjectDesc"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Description"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tvObjectLocation"
+        android:textAlignment="center"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toStartOf="@+id/tvUID"
-        android:layout_marginEnd="8dp"
-        android:textColor="@color/white"/>
+        app:layout_constraintStart_toEndOf="@+id/tvObjectName"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvUID"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="UID"
-        android:textColor="@color/white"
+        android:textAlignment="center"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tvObjectDesc"
+        app:layout_constraintStart_toEndOf="@+id/tvObjectLocation"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

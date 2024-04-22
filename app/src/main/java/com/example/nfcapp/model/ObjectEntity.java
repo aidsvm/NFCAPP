@@ -1,17 +1,25 @@
 package com.example.nfcapp.model;
 
+import com.google.android.material.progressindicator.LinearProgressIndicator;
+
+import org.intellij.lang.annotations.Identifier;
+
 public class ObjectEntity {
+
+    private Long objectId;
     private String objectName;
     private String objectDesc;
     private String objectLocation;
     private String nfcId;
 
+
     public ObjectEntity() {}
 
-    public ObjectEntity(String objectName, String objectDesc, String objectLocation) {
+    public ObjectEntity(String objectName, String objectDesc, String objectLocation, String nfcId) {
         this.objectName = objectName;
         this.objectDesc = objectDesc;
         this.objectLocation = objectLocation;
+        this.nfcId = nfcId;
     }
 
     public String getObjectName() {
@@ -38,8 +46,12 @@ public class ObjectEntity {
         this.objectLocation = objectLocation;
     }
 
-    public String getId() {
+    public String getNfcId() {
         return nfcId;
+    }
+
+    public Long getObjectId() {
+        return objectId;
     }
 
     public void setNfcId(String nfcUID) {

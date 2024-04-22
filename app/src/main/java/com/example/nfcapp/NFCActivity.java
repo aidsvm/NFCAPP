@@ -14,7 +14,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.nfcapp.api.ApiService;
-import com.example.nfcapp.api.NetworkUtils;
 import com.example.nfcapp.api.RetrofitClient;
 import com.example.nfcapp.model.ObjectEntity;
 
@@ -37,7 +36,7 @@ public class NFCActivity extends AppCompatActivity {
 
         // Gets the default NFC reader from the device.
         nfcAdapter = NfcAdapter.getDefaultAdapter(this);
-        NetworkUtils.checkApiConnection();
+//        NetworkUtils.checkApiConnection();
         // If the device does not contain a NFC reader, a message will popup and the application will close.
         if (nfcAdapter == null) {
             Toast.makeText(this, "NFC is not available on this device.", Toast.LENGTH_LONG).show();
@@ -136,9 +135,10 @@ public class NFCActivity extends AppCompatActivity {
      */
 
     private void retrieveObjectInfo (String UID) {
+
         ApiService apiService = RetrofitClient.getApiService();
         Call<ObjectEntity> call = apiService.getObjectInfoByNfcId(UID);
-
+        Log.d("UID", UID);
         call.enqueue(new Callback<ObjectEntity>() {
             @Override
             public void onResponse(Call<ObjectEntity> call, Response<ObjectEntity> response) {
@@ -149,7 +149,7 @@ public class NFCActivity extends AppCompatActivity {
                     String objectLocation = object.getObjectLocation();
                     displayObjectData(objectName, objectDesc, objectLocation);
                 } else {
-                    Log.d("API Error", "Failed to add object " + response.code());
+                    Log.d("API Error", "Failed to retrieve object: " + response.code());
                 }
             }
 
@@ -190,8 +190,9 @@ public class NFCActivity extends AppCompatActivity {
     private String bytesToHex(byte[] bytes) {
         StringBuilder sb = new StringBuilder();
         for (byte b : bytes) {
-            sb.append(String.format("%02X", b));
+            sb.append(String.format("%02x", b));
         }
         return sb.toString();
     }
+
 }

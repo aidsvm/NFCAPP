@@ -11,7 +11,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import java.io.IOException;
 
 public class RetrofitClient {
-    private static final String BASE_URL = "http://192.168.1.94:8080/";
+    private static final String BASE_URL = "http://70.127.176.163:8080/";
     private static Retrofit retrofit = null;
 
     private static Interceptor createBasicAuthInterceptor(final String username, final String password) {
@@ -24,6 +24,7 @@ public class RetrofitClient {
                 Request original = chain.request();
                 Request.Builder requestBuilder = original.newBuilder()
                         .header("Authorization", basic)
+                        .header("Accept", "application/json")  // Explicitly accept JSON
                         .method(original.method(), original.body());
 
                 Request request = requestBuilder.build();
@@ -31,7 +32,6 @@ public class RetrofitClient {
             }
         };
     }
-
 
     public static ApiService getApiService() {
         if (retrofit == null) {

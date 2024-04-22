@@ -1,4 +1,4 @@
-package com.example.nfcapp.api;
+package com.example.nfcapp.model;
 
 public class LoginDto {
     private String username;
