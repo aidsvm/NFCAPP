@@ -53,14 +53,19 @@ public class AdminOptionsActivity extends AppCompatActivity implements ObjectAda
     public void deleteSelectedObject(View view) {
         if (selectedObject != null) {
             ApiService apiService = RetrofitClient.getApiService();
-            Log.d("ID", selectedObject.getObjectId().toString());
             Call<Void> call = apiService.removeObject(selectedObject.getObjectId());
             call.enqueue(new Callback<Void>() {
                 @Override
                 public void onResponse(Call<Void> call, Response<Void> response) {
                     if (response.isSuccessful()) {
-                        // Refresh your list or UI here if necessary
+                        // Remove the selected object from the list
+                        int index = objectList.indexOf(selectedObject);
+                        if (index != -1) {
+                            objectList.remove(index);
+                            adapter.notifyItemRemoved(index); // Notify the adapter of the item removal
+                        }
                         Toast.makeText(AdminOptionsActivity.this, "Object deleted successfully", Toast.LENGTH_SHORT).show();
+                        selectedObject = null;  // Clear the selected object
                     } else {
                         Toast.makeText(AdminOptionsActivity.this, "Failed to delete object", Toast.LENGTH_SHORT).show();
                     }
@@ -75,6 +80,7 @@ public class AdminOptionsActivity extends AppCompatActivity implements ObjectAda
             Toast.makeText(AdminOptionsActivity.this, "No object selected", Toast.LENGTH_SHORT).show();
         }
     }
+
 
     private void fetchObjectsFromAPI() {
         ApiService apiService = RetrofitClient.getApiService();

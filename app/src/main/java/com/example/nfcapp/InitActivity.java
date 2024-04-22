@@ -110,16 +110,14 @@ public class InitActivity extends AppCompatActivity {
                 // This is used to display the NFC UID in a readable/usable way for the user.
                 String UID = bytesToHex(tag.getId());
                 ObjectDto objectDto = new ObjectDto(objectName, objectDesc, objectLocation, UID);
-                AdminDto adminDto = new AdminDto("admin", "pass");
-                addObject(objectDto, adminDto);
+                addObject(objectDto);
             }
         }
     }
 
-    private void addObject(ObjectDto objectDto, AdminDto adminDto) {
-        ObjectAdminDto objectAdminDto = new ObjectAdminDto(objectDto, adminDto);
+    private void addObject(ObjectDto objectDto) {
         ApiService apiService = RetrofitClient.getApiService();
-        Call<ObjectEntity> call = apiService.addObject(objectAdminDto);
+        Call<ObjectEntity> call = apiService.addObject(objectDto);
         call.enqueue(new Callback<ObjectEntity>() {
             @Override
             public void onResponse(Call<ObjectEntity> call, Response<ObjectEntity> response) {
@@ -149,30 +147,6 @@ public class InitActivity extends AppCompatActivity {
             }
         });
     }
-
-//    private void assignNFC(ObjectEntity object, String UID) {
-//        // Create request object for API call
-//        Log.d("Object ID", object.getObjectId().toString());
-//        AssignNfcRequest assignNfcRequest = new AssignNfcRequest(object.getObjectId(), UID); // Now using object ID
-//        ApiService apiService = RetrofitClient.getApiService();
-//
-//        Call<ObjectEntity> call = apiService.assignNfc(assignNfcRequest);
-//        call.enqueue(new Callback<ObjectEntity>() {
-//            @Override
-//            public void onResponse(Call<ObjectEntity> call, Response<ObjectEntity> response) {
-//                if (response.isSuccessful()) {
-//                    Log.d("API Response", "NFC assigned successfully to Object ID: " + object.getObjectId());
-//                } else {
-//                    Log.e("API Error", "Failed to assign NFC: HTTP " + response.code() + ", Message: " + response.message());
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<ObjectEntity> call, Throwable t) {
-//                Log.e("API Failure", "Error: " + t.getMessage());
-//            }
-//        });
-//    }
 
 
     private String bytesToHex(byte[] bytes) {

@@ -1,8 +1,5 @@
 package com.example.nfcapp.model;
 
-import com.google.android.material.progressindicator.LinearProgressIndicator;
-
-import org.intellij.lang.annotations.Identifier;
 
 public class ObjectEntity {
 
