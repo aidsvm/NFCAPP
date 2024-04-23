@@ -29,6 +29,8 @@ public class AdminOptionsActivity extends AppCompatActivity implements ObjectAda
     private List<ObjectEntity> objectList = new ArrayList<>();
 
     private ObjectEntity selectedObject;
+    public String username;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +41,9 @@ public class AdminOptionsActivity extends AppCompatActivity implements ObjectAda
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new ObjectAdapter(objectList, this);
         recyclerView.setAdapter(adapter);
+
+        Intent intent = getIntent();
+        username = intent.getStringExtra("USERNAME");
 
         fetchObjectsFromAPI();
     }
@@ -112,6 +117,7 @@ public class AdminOptionsActivity extends AppCompatActivity implements ObjectAda
     public void onAdminAddObject(View view) {
         // Go back to add object page
         Intent intent = new Intent(this, addObjectActivity.class);
+        intent.putExtra("USERNAME", username);
         startActivity(intent);
     }
 

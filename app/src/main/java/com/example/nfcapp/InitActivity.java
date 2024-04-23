@@ -15,10 +15,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.nfcapp.api.ApiService;
-import com.example.nfcapp.model.ObjectAdminDto;
 import com.example.nfcapp.model.ObjectDto;
 import com.example.nfcapp.api.RetrofitClient;
-import com.example.nfcapp.model.AdminDto;
 import com.example.nfcapp.model.ObjectEntity;
 
 import retrofit2.Call;
@@ -32,17 +30,22 @@ public class InitActivity extends AppCompatActivity {
     public String objectName;
     public String objectDesc;
     public String objectLocation;
+    public String username;
+    public Long adminId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
 
+
+
         Intent intent = getIntent();
         if (intent != null) {
             objectName = intent.getStringExtra("objectName");
             objectDesc = intent.getStringExtra("objectDesc");
             objectLocation = intent.getStringExtra("objectLocation");
+            username = intent.getStringExtra("USERNAME");
         }
 
         nfcAdapter = NfcAdapter.getDefaultAdapter(this);
@@ -106,13 +109,50 @@ public class InitActivity extends AppCompatActivity {
 
             // If a Tag object was successfully retrieved, process it.
             if (tag != null) {
-                // Convert the tag's ID to a hex string and display it.
-                // This is used to display the NFC UID in a readable/usable way for the user.
                 String UID = bytesToHex(tag.getId());
-                ObjectDto objectDto = new ObjectDto(objectName, objectDesc, objectLocation, UID);
-                addObject(objectDto);
+                getAdminId(username, new AdminIdCallback() {
+                    @Override
+                    public void onAdminIdReceived(Long adminId) {
+                        ObjectDto objectDto = new ObjectDto(objectName, objectDesc, objectLocation, UID, adminId);
+                        addObject(objectDto);
+                    }
+
+                    @Override
+                    public void onError(String error) {
+                        Toast.makeText(InitActivity.this, "Error: " + error, Toast.LENGTH_LONG).show();
+                    }
+                });
             }
         }
+    }
+
+    private interface AdminIdCallback {
+        void onAdminIdReceived(Long adminId);
+        void onError(String error);
+    }
+
+    private void getAdminId(String username, AdminIdCallback callback) {
+        ApiService apiService = RetrofitClient.getApiService();
+        Call<Long> call = apiService.getAdminId(username);
+        call.enqueue(new Callback<Long>() {
+            @Override
+            public void onResponse(Call<Long> call, Response<Long> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    adminId = response.body();
+                    Log.d("Admin Id: ", adminId.toString());
+                    callback.onAdminIdReceived(adminId);
+                } else {
+                    Log.d("Admin Id:", "NOT FOUND!");
+                    callback.onError("Admin ID not found");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Long> call, Throwable t) {
+                Log.e("API Failure", "Error: " + t.getMessage());
+                callback.onError(t.getMessage());
+            }
+        });
     }
 
     private void addObject(ObjectDto objectDto) {
@@ -186,6 +226,7 @@ public class InitActivity extends AppCompatActivity {
     public void onBack(View view) {
         // Start the admin login activity
         Intent intent = new Intent(this, AdminOptionsActivity.class);
+        intent.putExtra("USERNAME", username);
         startActivity(intent);
     }
 }

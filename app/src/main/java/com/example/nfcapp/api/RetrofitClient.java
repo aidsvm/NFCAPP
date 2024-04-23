@@ -11,7 +11,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import java.io.IOException;
 
 public class RetrofitClient {
-    private static final String BASE_URL = "http://70.127.176.163:8080/";
+    private static final String BASE_URL = "http://97.106.165.83:8080/";
     private static Retrofit retrofit = null;
 
     private static Interceptor createBasicAuthInterceptor(final String username, final String password) {

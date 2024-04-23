@@ -25,6 +25,8 @@ public class addObjectActivity extends AppCompatActivity {
     public String objectDesc;
     public String objectLocation;
 
+    public String username;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +36,9 @@ public class addObjectActivity extends AppCompatActivity {
         editTextObjectName = findViewById(R.id.name_input);
         editTextObjectDesc = findViewById(R.id.desc_input);
         editTextObjectLocation = findViewById(R.id.location_input);
+
+        Intent intent = getIntent();
+        username = intent.getStringExtra("USERNAME");
 
     }
 
@@ -46,6 +51,7 @@ public class addObjectActivity extends AppCompatActivity {
         intent.putExtra("objectName", objectName);
         intent.putExtra("objectDesc", objectDesc);
         intent.putExtra("objectLocation", objectLocation);
+        intent.putExtra("USERNAME", username);
         startActivity(intent);
     }
 

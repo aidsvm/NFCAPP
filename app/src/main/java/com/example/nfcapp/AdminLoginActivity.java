@@ -53,7 +53,7 @@ public class AdminLoginActivity extends AppCompatActivity {
         editTextUsername = findViewById(R.id.username_input);
         editTextPassword = findViewById(R.id.password);
 
-        String adminUsername = editTextUsername.getText().toString().trim();
+        final String adminUsername = editTextUsername.getText().toString().trim();
         String adminPassword = editTextPassword.getText().toString().trim();
 
         ApiService apiService = RetrofitClient.getApiService();
@@ -67,6 +67,7 @@ public class AdminLoginActivity extends AppCompatActivity {
                 if (response.isSuccessful() && response.body() != null && response.body().isSuccess()) {
                     Log.d("API Response", "Login successful!");
                     Intent intent = new Intent(AdminLoginActivity.this, AdminOptionsActivity.class);
+                    intent.putExtra("USERNAME", adminUsername);
                     startActivity(intent);
                     finish();
                 } else {
