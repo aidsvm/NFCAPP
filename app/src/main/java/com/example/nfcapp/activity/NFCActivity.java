@@ -1,4 +1,4 @@
-package com.example.nfcapp;
+package com.example.nfcapp.activity;
 
 import android.app.PendingIntent;
 import android.content.Intent;
@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.nfcapp.R;
 import com.example.nfcapp.api.ApiService;
 import com.example.nfcapp.api.RetrofitClient;
 import com.example.nfcapp.model.ObjectEntity;

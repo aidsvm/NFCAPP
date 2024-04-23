@@ -1,4 +1,4 @@
-package com.example.nfcapp;
+package com.example.nfcapp.activity;
 
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.nfcapp.R;
 import com.example.nfcapp.model.ObjectEntity;
 
 import java.util.List;

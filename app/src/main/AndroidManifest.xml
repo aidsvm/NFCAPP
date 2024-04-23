@@ -25,7 +25,7 @@
             android:networkSecurityConfig="@xml/network_security_config">
 
 
-        <activity android:name=".NFCActivity"
+        <activity android:name=".activity.NFCActivity"
                   android:exported="true">
 
             <!-- Launch intent filter -->
@@ -51,7 +51,7 @@
                     android:resource="@xml/nfc_tech_filter" />
         </activity>
 
-        <activity android:name=".AdminLoginActivity" android:exported="true">
+        <activity android:name=".activity.AdminLoginActivity" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -59,7 +59,7 @@
 
         </activity>
 
-        <activity android:name=".AdminOptionsActivity" android:exported="true">
+        <activity android:name=".activity.AdminOptionsActivity" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -67,7 +67,7 @@
 
         </activity>
 
-        <activity android:name=".InitActivity" android:exported="true">
+        <activity android:name=".activity.InitActivity" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -75,7 +75,7 @@
 
         </activity>
 
-        <activity android:name=".addObjectActivity" android:exported="true">
+        <activity android:name=".activity.addObjectActivity" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

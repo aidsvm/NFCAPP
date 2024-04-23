@@ -1,8 +1,9 @@
-package com.example.nfcapp;
+package com.example.nfcapp.activity;
 
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.nfc.NfcAdapter;
 import android.nfc.Tag;
 import android.nfc.tech.NfcA;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.nfcapp.R;
 import com.example.nfcapp.api.ApiService;
 import com.example.nfcapp.model.ObjectDto;
 import com.example.nfcapp.api.RetrofitClient;
@@ -45,8 +47,10 @@ public class InitActivity extends AppCompatActivity {
             objectName = intent.getStringExtra("objectName");
             objectDesc = intent.getStringExtra("objectDesc");
             objectLocation = intent.getStringExtra("objectLocation");
-            username = intent.getStringExtra("USERNAME");
         }
+
+        SharedPreferences prefs = getSharedPreferences("AppPrefs", MODE_PRIVATE);
+        username = prefs.getString("USERNAME", null);
 
         nfcAdapter = NfcAdapter.getDefaultAdapter(this);
         if (nfcAdapter == null) {
@@ -226,7 +230,6 @@ public class InitActivity extends AppCompatActivity {
     public void onBack(View view) {
         // Start the admin login activity
         Intent intent = new Intent(this, AdminOptionsActivity.class);
-        intent.putExtra("USERNAME", username);
         startActivity(intent);
     }
 }

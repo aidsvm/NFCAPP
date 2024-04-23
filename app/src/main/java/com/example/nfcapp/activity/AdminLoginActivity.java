@@ -1,6 +1,7 @@
-package com.example.nfcapp;
+package com.example.nfcapp.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.nfcapp.R;
 import com.example.nfcapp.api.ApiService;
 import com.example.nfcapp.model.LoginDto;
 import com.example.nfcapp.api.LoginResponse;
@@ -66,8 +68,13 @@ public class AdminLoginActivity extends AppCompatActivity {
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 if (response.isSuccessful() && response.body() != null && response.body().isSuccess()) {
                     Log.d("API Response", "Login successful!");
+
+                    SharedPreferences prefs = getSharedPreferences("AppPrefs", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = prefs.edit();
+                    editor.putString("USERNAME", adminUsername);
+                    editor.apply();
+
                     Intent intent = new Intent(AdminLoginActivity.this, AdminOptionsActivity.class);
-                    intent.putExtra("USERNAME", adminUsername);
                     startActivity(intent);
                     finish();
                 } else {

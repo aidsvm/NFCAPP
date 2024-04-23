@@ -1,16 +1,16 @@
-package com.example.nfcapp;
+package com.example.nfcapp.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.nfcapp.R;
 import com.example.nfcapp.api.ApiService;
 import com.example.nfcapp.api.RetrofitClient;
 import com.example.nfcapp.model.ObjectEntity;
@@ -42,8 +42,6 @@ public class AdminOptionsActivity extends AppCompatActivity implements ObjectAda
         adapter = new ObjectAdapter(objectList, this);
         recyclerView.setAdapter(adapter);
 
-        Intent intent = getIntent();
-        username = intent.getStringExtra("USERNAME");
 
         fetchObjectsFromAPI();
     }
@@ -117,7 +115,6 @@ public class AdminOptionsActivity extends AppCompatActivity implements ObjectAda
     public void onAdminAddObject(View view) {
         // Go back to add object page
         Intent intent = new Intent(this, addObjectActivity.class);
-        intent.putExtra("USERNAME", username);
         startActivity(intent);
     }
 

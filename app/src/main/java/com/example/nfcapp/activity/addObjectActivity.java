@@ -1,4 +1,4 @@
-package com.example.nfcapp;
+package com.example.nfcapp.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,9 +9,7 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.nfcapp.api.ApiService;
-import com.example.nfcapp.api.RetrofitClient;
-import com.example.nfcapp.model.ObjectEntity;
+import com.example.nfcapp.R;
 
 public class addObjectActivity extends AppCompatActivity {
 
@@ -38,7 +36,6 @@ public class addObjectActivity extends AppCompatActivity {
         editTextObjectLocation = findViewById(R.id.location_input);
 
         Intent intent = getIntent();
-        username = intent.getStringExtra("USERNAME");
 
     }
 
@@ -51,7 +48,6 @@ public class addObjectActivity extends AppCompatActivity {
         intent.putExtra("objectName", objectName);
         intent.putExtra("objectDesc", objectDesc);
         intent.putExtra("objectLocation", objectLocation);
-        intent.putExtra("USERNAME", username);
         startActivity(intent);
     }
 
