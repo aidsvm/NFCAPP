@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.nfcapp.R;
@@ -22,13 +23,18 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-// Note: All this program currently does is scanning and retrieving a NFC UID. Other functionalities will
-// be added after this part is done.
 
 public class NFCActivity extends AppCompatActivity {
     // Adapter for checking NFC support and reading tags.
     private NfcAdapter nfcAdapter;
 
+    /**
+     * Initializes the activity, and sets up the nfc adapter.
+     *
+     * @param savedInstanceState If the activity is being re-initialized after
+     *                           previously being shut down then this Bundle contains the data it most
+     *                           recently supplied in {@link #onSaveInstanceState}.  <b><i>Note: Otherwise it is null.</i></b>
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,12 +55,26 @@ public class NFCActivity extends AppCompatActivity {
         handleIntent(getIntent());
     }
 
+    /**
+     * This handles the intent for when the user clicks on admin login, which will take them to
+     * the login page.
+     *
+     * @param view
+     */
+
     public void onAdminLoginClick(View view) {
         // Start the admin login activity
         Intent intent = new Intent(this, AdminLoginActivity.class);
         startActivity(intent);
     }
 
+    /**
+     * Re-registers the NFC foreground dispatch system with the PendingIntent and IntentFilter settings
+     * each time the activity resumes. This ensures that the activity will handle NFC intents before
+     * any other app when the app is actively being used. This method sets up the NFC adapter to
+     * intercept NFC tags that match the defined technologies while the app is in the foreground,
+     * providing a more direct interaction with NFC tags.
+     */
     @Override
     protected void onResume() {
         super.onResume();
@@ -71,11 +91,20 @@ public class NFCActivity extends AppCompatActivity {
         nfcAdapter.enableForegroundDispatch(this, pendingIntent, intentFiltersArray, techListsArray);
     }
 
+    /**
+     * Disables the NFC foreground dispatch system when the activity is no longer in the foreground.
+     * This method is called as part of the activity lifecycle when the activity is going into the
+     * background. Disabling foreground dispatch helps to conserve battery and ensures that the
+     * activity does not intercept NFC intents when it is not visible to the user.
+     */
     @Override
     protected void onPause() {
         super.onPause();
-        // Disable foreground dispatch when the app is not in focus to conserve resources.
-        nfcAdapter.disableForegroundDispatch(this);
+        // Check if the NFC adapter is not null and then disable the NFC foreground dispatch.
+        // This is important to prevent this activity from intercepting NFC intents when it is not active.
+        if (nfcAdapter != null) {
+            nfcAdapter.disableForegroundDispatch(this);
+        }
     }
 
     @Override
@@ -93,6 +122,7 @@ public class NFCActivity extends AppCompatActivity {
      * Handles the NFC intent when a new technology (NFC tag) is discovered.
      * This will then extract the NFC UID, and then passes the UID into
      * te retrieveObjectInfo function.
+     *
      * @param intent
      */
 
@@ -132,10 +162,11 @@ public class NFCActivity extends AppCompatActivity {
      * of the NFC card. It initializes an ObjectEntity with the object from the database
      * that matches the UID and extracts the objectName, objectDesc, and objectLocation
      * and passes it into the displayObjectData function.
+     *
      * @param UID: NFC ID
      */
 
-    private void retrieveObjectInfo (String UID) {
+    private void retrieveObjectInfo(String UID) {
 
         ApiService apiService = RetrofitClient.getApiService();
         Call<ObjectEntity> call = apiService.getObjectInfoByNfcId(UID);
@@ -143,11 +174,13 @@ public class NFCActivity extends AppCompatActivity {
         call.enqueue(new Callback<ObjectEntity>() {
             @Override
             public void onResponse(Call<ObjectEntity> call, Response<ObjectEntity> response) {
+                // Sets up an ObjectEntity if the response is successful from the API.
                 if (response.isSuccessful() && response.body() != null) {
                     ObjectEntity object = response.body();
                     String objectName = object.getObjectName();
                     String objectDesc = object.getObjectDesc();
                     String objectLocation = object.getObjectLocation();
+                    // Then displays the info in the corresponding text boxes.
                     displayObjectData(objectName, objectDesc, objectLocation);
                 } else {
                     Toast.makeText(NFCActivity.this, "Failed to retrieve object: " + response.code(), Toast.LENGTH_LONG).show();
@@ -164,26 +197,26 @@ public class NFCActivity extends AppCompatActivity {
     }
 
     /**
-     *
      * This function takes the parameters from the retrieved object and displays it to the
      * UI.
-     * @param objectName: Name of the object
-     * @param objectDesc: Description of the object
+     *
+     * @param objectName:     Name of the object
+     * @param objectDesc:     Description of the object
      * @param objectLocation: Location of the object
      */
     private void displayObjectData(String objectName, String objectDesc, String objectLocation) {
-        // Use GetObjectByNFCID API Function to display Object Info.
+        // Find the text view by ID and initializes a textView
         TextView nameOutput = findViewById(R.id.name_output);
         TextView descOutput = findViewById(R.id.desc_output);
         TextView locationOutput = findViewById(R.id.location_output);
 
+        // Sets the text of each view.
         nameOutput.setText(objectName);
         descOutput.setText(objectDesc);
         locationOutput.setText(objectLocation);
     }
 
     /**
-     *
      * Converts the UID (which is in bytes) to Hex.
      *
      * @param bytes: takes in the initial state of the UID

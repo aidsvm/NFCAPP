@@ -9,6 +9,9 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.http.*;
 
+/**
+ * Sets up API methods.
+ */
 public interface ApiService {
     @GET("admin/getAllObjects")
     Call<List<ObjectEntity>> getAllObjects();
@@ -18,7 +21,6 @@ public interface ApiService {
 
     @GET("objects/getObjectInfoByNfcId")
     Call<ObjectEntity> getObjectInfoByNfcId(@Query("NfcId") String nfcId);
-
 
     @POST("admin/login")
     Call<LoginResponse> loginAdmin(@Body LoginDto loginDto);

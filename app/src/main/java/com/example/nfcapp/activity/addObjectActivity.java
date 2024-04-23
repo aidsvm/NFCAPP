@@ -25,7 +25,15 @@ public class addObjectActivity extends AppCompatActivity {
 
     public String username;
 
-
+    /**
+     * Initializes the activity with a form to input new object details.
+     * This method is called when the activity starts and handles the initialization
+     * of UI components and setting up initial states.
+     *
+     * @param savedInstanceState If the activity is being re-initialized after previously
+     *                           being shut down then this Bundle contains the data it most
+     *                           recently supplied in onSaveInstanceState(Bundle). Note: Otherwise it is null.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,11 +42,15 @@ public class addObjectActivity extends AppCompatActivity {
         editTextObjectName = findViewById(R.id.name_input);
         editTextObjectDesc = findViewById(R.id.desc_input);
         editTextObjectLocation = findViewById(R.id.location_input);
-
-        Intent intent = getIntent();
-
     }
 
+    /**
+     * Handles the click event on the "Add Object" button.
+     * This method gathers the input data from the user, creates a new Intent
+     * to start {@link InitActivity}, and passes the entered object details to it.
+     *
+     * @param view The view (button) that was clicked.
+     */
     public void onAddObjectClicked(View view) {
         objectName = editTextObjectName.getText().toString();
         objectDesc = editTextObjectDesc.getText().toString();
@@ -51,6 +63,12 @@ public class addObjectActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /**
+     * Handles the back button click to navigate to the admin options activity.
+     * This method creates a new Intent to start {@link AdminOptionsActivity} and navigates the user back.
+     *
+     * @param view The view (button) that was clicked.
+     */
     public void onBackObject(View view) {
         // Start the admin login activity
         Intent intent = new Intent(this, AdminOptionsActivity.class);

@@ -1,5 +1,8 @@
 package com.example.nfcapp.api;
 
+/**
+ * Converts API login responses to JSON format.
+ */
 public class LoginResponse {
     private boolean success;
     private String message;

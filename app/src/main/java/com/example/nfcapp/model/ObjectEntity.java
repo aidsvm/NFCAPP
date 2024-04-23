@@ -10,7 +10,8 @@ public class ObjectEntity {
     private String nfcId;
 
 
-    public ObjectEntity() {}
+    public ObjectEntity() {
+    }
 
     public ObjectEntity(String objectName, String objectDesc, String objectLocation, String nfcId) {
         this.objectName = objectName;

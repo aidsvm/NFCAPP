@@ -32,6 +32,13 @@ public class AdminOptionsActivity extends AppCompatActivity implements ObjectAda
     public String username;
 
 
+    /**
+     * Sets up the activity. Sets up the recylerView for the list of the objects in the database.
+     *
+     * @param savedInstanceState If the activity is being re-initialized after
+     *                           previously being shut down then this Bundle contains the data it most
+     *                           recently supplied in {@link #onSaveInstanceState}.  <b><i>Note: Otherwise it is null.</i></b>
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,17 +49,29 @@ public class AdminOptionsActivity extends AppCompatActivity implements ObjectAda
         adapter = new ObjectAdapter(objectList, this);
         recyclerView.setAdapter(adapter);
 
-
+        // function call
         fetchObjectsFromAPI();
     }
 
+    /**
+     * When an object is clicked on it is stored in selectedObject for later use.
+     *
+     * @param object passes in the selected object
+     */
     @Override
     public void onItemClick(ObjectEntity object) {
         selectedObject = object; // Update the selected object
+        // This handles when an object is selected, and highlights it.
         adapter.notifyDataSetChanged();
         Log.d("Selected Object", selectedObject.getObjectName());
     }
 
+    /**
+     * This function makes an API call to remove and object from the database, once the call is
+     * successful, it will remove the object from the objectList and update the view.
+     *
+     * @param view
+     */
     public void deleteSelectedObject(View view) {
         if (selectedObject != null) {
             ApiService apiService = RetrofitClient.getApiService();
@@ -84,7 +103,10 @@ public class AdminOptionsActivity extends AppCompatActivity implements ObjectAda
         }
     }
 
-
+    /**
+     * This function calls the API to getAllObjects from the database. Once the call is successful,
+     * it will update the objectList with all of the objects.
+     */
     private void fetchObjectsFromAPI() {
         ApiService apiService = RetrofitClient.getApiService();
         Call<List<ObjectEntity>> call = apiService.getAllObjects();
@@ -96,10 +118,6 @@ public class AdminOptionsActivity extends AppCompatActivity implements ObjectAda
                     objectList.clear();
                     objectList.addAll(response.body());
                     adapter.notifyDataSetChanged(); // Refresh the adapter
-                    for (ObjectEntity object : objectList) {
-                        Log.d("AdminOptionsActivity", "Object NAME: " + object.getObjectName());
-                        Log.d("AdminOptionsActivity", "Object UID: " + object.getNfcId());
-                    }
                 } else {
                     Toast.makeText(AdminOptionsActivity.this, "Failed to fetch objects", Toast.LENGTH_SHORT).show();
                 }
@@ -112,12 +130,22 @@ public class AdminOptionsActivity extends AppCompatActivity implements ObjectAda
         });
     }
 
+    /**
+     * When the admin clicks add object, sends them to init page.
+     *
+     * @param view
+     */
     public void onAdminAddObject(View view) {
         // Go back to add object page
         Intent intent = new Intent(this, addObjectActivity.class);
         startActivity(intent);
     }
 
+    /**
+     * Sends back to scan activity.
+     *
+     * @param view
+     */
     public void onBackOptions(View view) {
         // Start the admin login activity
         Intent intent = new Intent(this, NFCActivity.class);

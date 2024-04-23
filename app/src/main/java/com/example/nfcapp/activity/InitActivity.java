@@ -35,11 +35,19 @@ public class InitActivity extends AppCompatActivity {
     public String username;
     public Long adminId;
 
+    /**
+     * Sets up activity. Retrieves admin inputted information from the last activity (objectName,
+     * (objectDesc, objectLocation). It also retrieves the session username from the admin login.
+     * Sets up a NFC adapter for scanning use.
+     *
+     * @param savedInstanceState If the activity is being re-initialized after
+     *                           previously being shut down then this Bundle contains the data it most
+     *                           recently supplied in {@link #onSaveInstanceState}.  <b><i>Note: Otherwise it is null.</i></b>
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
-
 
 
         Intent intent = getIntent();
@@ -60,6 +68,13 @@ public class InitActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Re-registers the NFC foreground dispatch system with the PendingIntent and IntentFilter settings
+     * each time the activity resumes. This ensures that the activity will handle NFC intents before
+     * any other app when the app is actively being used. This method sets up the NFC adapter to
+     * intercept NFC tags that match the defined technologies while the app is in the foreground,
+     * providing a more direct interaction with NFC tags.
+     */
     protected void onResume() {
         super.onResume();
         // Create a pending intent that will restart the activity with the intent of a discovered NFC tag.
@@ -75,12 +90,26 @@ public class InitActivity extends AppCompatActivity {
         nfcAdapter.enableForegroundDispatch(this, pendingIntent, intentFiltersArray, techListsArray);
     }
 
+    /**
+     * Disables the NFC foreground dispatch system when the activity is no longer in the foreground.
+     * Disabling foreground dispatch helps to conserve battery and ensures that the
+     * activity does not intercept NFC intents when it is not visible to the user.
+     */
     @Override
     protected void onPause() {
         super.onPause();
-        nfcAdapter.disableForegroundDispatch(this);
+        // Check if the NFC adapter is not null and then disable the NFC foreground dispatch.
+        // This is important to prevent this activity from intercepting NFC intents when it is not active.
+        if (nfcAdapter != null) {
+            nfcAdapter.disableForegroundDispatch(this);
+        }
     }
 
+    /**
+     * Handles intent.
+     *
+     * @param intent The new intent that was started for the activity.
+     */
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
@@ -92,6 +121,14 @@ public class InitActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Handles the NFC intent when a new technology (NFC tag) is discovered.
+     * It will call the getAdminId function with the username, sets up an
+     * ObjectDto object with the object parameters. This object will then
+     * be passed to addObject to be added to the database.
+     *
+     * @param intent
+     */
     private void handleIntent(Intent intent) {
         // Retrieve the action from the intent to determine the type of NFC interaction.
         String action = intent.getAction();
@@ -130,11 +167,22 @@ public class InitActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Interface for retrieving the adminId.
+     */
     private interface AdminIdCallback {
         void onAdminIdReceived(Long adminId);
+
         void onError(String error);
     }
 
+    /**
+     * This function makes an API call with getAdminId, and passes in username to find the
+     * adminId, once successful it will initialize an adminId.
+     *
+     * @param username from the login session
+     * @param callback passed adminId for initialization
+     */
     private void getAdminId(String username, AdminIdCallback callback) {
         ApiService apiService = RetrofitClient.getApiService();
         Call<Long> call = apiService.getAdminId(username);
@@ -159,6 +207,12 @@ public class InitActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * This function makes an API call with an ObjectDto object. Once the call is successful, it will
+     * call the addNfc function to add the assigned NFC to the NFC database table.
+     *
+     * @param objectDto sends this object to the API to be added to the database.
+     */
     private void addObject(ObjectDto objectDto) {
         ApiService apiService = RetrofitClient.getApiService();
         Call<ObjectEntity> call = apiService.addObject(objectDto);
@@ -192,6 +246,11 @@ public class InitActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * This function makes an API call to add the NFC UID into the database.
+     *
+     * @param UID passed to the API to be added to database
+     */
     private void addNfc(String UID) {
         ApiService apiService = RetrofitClient.getApiService();
         Call<String> call = apiService.addNfc(UID);
@@ -199,11 +258,9 @@ public class InitActivity extends AppCompatActivity {
         call.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
-                if(response.isSuccessful()) {
+                if (response.isSuccessful()) {
                     Log.d("addNfc", "Add NFC successful!");
-                }
-
-                else {
+                } else {
                     Log.d("addNfc", "Add NFC not successful!");
                 }
 
@@ -215,10 +272,14 @@ public class InitActivity extends AppCompatActivity {
             }
         });
 
-
-
     }
 
+    /**
+     * Converts the UID (which is in bytes) to Hex.
+     *
+     * @param bytes: takes in the initial state of the UID
+     * @return the properly formatted UID
+     */
     private String bytesToHex(byte[] bytes) {
         StringBuilder sb = new StringBuilder();
         for (byte b : bytes) {
@@ -227,6 +288,11 @@ public class InitActivity extends AppCompatActivity {
         return sb.toString();
     }
 
+    /**
+     * Sends admin back to admin options page.
+     *
+     * @param view
+     */
     public void onBack(View view) {
         // Start the admin login activity
         Intent intent = new Intent(this, AdminOptionsActivity.class);
