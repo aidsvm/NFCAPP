@@ -6,8 +6,8 @@ public class NFCEntity {
     public NFCEntity() {
     }
 
-    public NFCEntity(String nfcId) { // Change parameter name to match the field
-        this.nfcId = nfcId; // Correct assignment
+    public NFCEntity(String nfcId) { 
+        this.nfcId = nfcId; 
     }
 
     // Getter
